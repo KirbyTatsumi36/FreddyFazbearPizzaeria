@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@400;700&display=swap" rel="stylesheet">
+  <title>Pago en efectivo</title>
+</head>
+<body>
+    <center>
+        <h1>Pago con efectivo</h1>
+    </center>
+
+    <form id="formPago">
+        <p><strong>Total de la compra:</strong> <span id="total"></span></p>
+        <label for="efectivo">Monto entregado:</label>
+        <input type="number" id="efectivo" min="0" step="0.01" required>
+        <p><strong>Cambio:</strong> <span id="cambio">0</span></p>
+        <button type="button" onclick="calcularCambio()">Calcular Cambio</button>
+    </form>
+
+    <br><br>
+    <center>
+        <button onclick="window.location.href='pagypedi.html'">Página de pedidos</button>
+    </center>
+
+    <script>
+        const total = parseFloat(localStorage.getItem('totalCompra')) || 0;
+        document.getElementById('total').innerText = `$${total.toFixed(2)}`;
+
+        function calcularCambio() {
+            const efectivo = parseFloat(document.getElementById('efectivo').value);
+            if (isNaN(efectivo) || efectivo < total) {
+                alert('El monto entregado no es suficiente o no es válido.');
+                return;
+            }
+            const cambio = efectivo - total;
+            document.getElementById('cambio').innerText = `$${cambio.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
